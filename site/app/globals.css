@@ -41,7 +41,8 @@ a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
   margin-inline: auto;
   max-width: 62rem;
 }
-.hero h1 { font-size: clamp(1.35rem, 10vw, 7rem); font-weight: 400; line-height: 1.2; }
+/* Specimen line heights live in app/specimens.json so the SVG fallbacks share them. */
+.hero h1 { font-size: clamp(1.35rem, 10vw, 7rem); font-weight: 400; }
 .hero-code {
   width: max-content;
   max-width: 100%;
@@ -49,7 +50,6 @@ a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
   overflow-x: auto;
   text-align: left;
   font-size: clamp(.75rem, 3.5vw, 1.1rem);
-  line-height: 1.5;
 }
 .hero-code, .hero-code code { font-family: inherit; }
 .hero-tagline {
@@ -110,6 +110,18 @@ a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
 }
 .theme-card h3 { padding: .65rem 1rem; font-size: clamp(1.15rem, 3vw, 1.5rem); font-weight: 850; }
 .font-specimen { font-variant-ligatures: contextual; }
+
+/* Safari and every iOS browser lack COLRv1. For them, scripts/render-fallbacks.mts
+   draws each specimen from the same font to an SVG. The live text stays on top in
+   transparent ink, so it can still be selected, searched, and read aloud. */
+.color-text { display: inline-grid; vertical-align: top; }
+.color-text > * { grid-area: 1 / 1; justify-self: start; align-self: start; }
+.color-text-fallback { max-width: none; }
+.color-text-live { color: transparent; }
+@supports font-tech(color-COLRv1) {
+  .color-text-fallback { display: none; }
+  .color-text-live { color: inherit; }
+}
 .card-specimen {
   padding: 1rem;
   background: var(--specimen);
@@ -117,9 +129,10 @@ a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
   border-block: var(--border);
 }
 .card-specimen code, .card-specimen pre { font-family: inherit; }
-.specimen-title { font-size: clamp(1.55rem, 5vw, 3.4rem); line-height: 1.25; margin-bottom: .75rem; }
-.card-specimen pre { font-size: clamp(.78rem, 2.8vw, 1rem); line-height: 1.5; overflow-x: auto; }
-.ligatures { font-size: .8rem; white-space: pre-wrap; margin-top: .65rem; }
+.specimen-title { font-size: clamp(1.55rem, 5vw, 3.4rem); margin-bottom: .75rem; }
+.card-specimen pre { font-size: clamp(.78rem, 2.8vw, 1rem); overflow-x: auto; }
+/* No wrapping, because an SVG fallback cannot reflow. */
+.ligatures { font-size: .8rem; white-space: pre; overflow-x: auto; margin-top: .65rem; }
 .theme-description { flex: 1; padding: .85rem 1rem .5rem; }
 .downloads { padding: 0 1rem .9rem; font-size: .875rem; font-weight: 800; }
 .downloads a, .contribute a { text-decoration: underline; text-underline-offset: 3px; }

@@ -1,5 +1,6 @@
 .next/
 out/
 public/fonts/
+public/fallbacks/
 next-env.d.ts
 *.tsbuildinfo

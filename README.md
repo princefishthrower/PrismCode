@@ -1,5 +1,7 @@
 # PrismCode
 
+[PrismCode website](https://princefishthrower.github.io/PrismCode/)
+
 PrismCode is a family of monospaced color fonts based on Fira Code 6.2 Regular. The original PrismCode Regular uses OpenType COLRv1 to give the left leg, right leg, and crossbar of `A` their own colors. [Three seeded stroke themes](#seeded-stroke-themes) use the same outlines and masks. [Four solid-color variants](#solid-color-variants) assign a fixed color to each mapped glyph.
 
 **Sunset · default**
@@ -14,10 +16,7 @@ PrismCode is a family of monospaced color fonts based on Fira Code 6.2 Regular. 
 
 ![PrismCode in Neon](previews/neon.svg)
 
-[Download TTF](fonts/PrismCode-Regular.ttf) · [Download WOFF2](fonts/PrismCode-Regular.woff2) · [Browser demo](demo/index.html)
-
-[PrismCode showcase](https://princefishthrower.github.io/PrismCode/) · [Theme gallery](https://princefishthrower.github.io/PrismCode/themes/)
-
+[Download TTF](fonts/PrismCode-Regular.ttf) · [Download WOFF2](fonts/PrismCode-Regular.woff2) · [All fonts as ZIP files](https://github.com/princefishthrower/PrismCode/releases/latest)
 
 ## Use the stroke palettes on the web
 
@@ -69,8 +68,6 @@ code.custom {
 ```html
 <code class="custom">const add = (n: number) =&gt; n + 1;</code>
 ```
-
-Open [`demo/index.html`](demo/index.html) locally to compare the stroke palettes, seeded stroke themes, and solid-color variants at 12, 14, and 16 px.
 
 ## Seeded stroke themes
 
@@ -236,7 +233,7 @@ code.qwerty {
 - Color also covers the visible Fira Code 6.2 glyphs shaped for `=>`, `->`, `<-`, `==`, `===`, `!=`, `!==`, `<=`, `>=`, `&&`, `||`, `??`, `...`, `::`, `++`, `--`, `//`, `/*`, `*/`, and `**`. Contextual and stylistic alternates outside that set can appear in monochrome.
 - Other original Fira Code glyphs, such as `λ` and `é`, inherit the text color. Applications without COLRv1 support can render the original monochrome outlines. Ligature shaping and palette selection depend on the application.
 
-The WOFF2 demo rendered all three palettes and its programming ligatures at 12, 14, and 16 px in Chrome 157 and Firefox 159 on macOS. Playwright WebKit 27.2 loaded the same font and rendered it in monochrome. The SVG previews use embedded paths and display their colors independently of the browser's font support. [Chromium COLRv1 documentation](https://developer.chrome.com/blog/colrv1-fonts) · [Firefox palette support](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/107)
+PrismCode Regular rendered all three palettes and its programming ligatures at 12, 14, and 16 px in Chrome 157 and Firefox 159 on macOS. Playwright WebKit 27.2 loaded the same font and rendered it in monochrome. The SVG previews use embedded paths and display their colors independently of the browser's font support. [Chromium COLRv1 documentation](https://developer.chrome.com/blog/colrv1-fonts) · [Firefox palette support](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/107)
 
 ## Build and test
 
@@ -254,8 +251,21 @@ Edit [`src/strokes.ts`](src/strokes.ts) to adjust a glyph. Each entry specifies 
 
 Edit [`src/variants.ts`](src/variants.ts) to change the fixed rainbow, keyboard, or ligature colors. The solid-color families use a single COLRv0 layer that references the original glyph directly.
 
+### Release
+
+Push a tag such as `v0.1.0`, or run the Release fonts workflow from the Actions tab with a tag name. [The workflow](.github/workflows/release.yml) runs the tests, then attaches `PrismCode-TTF.zip` and `PrismCode-WOFF2.zip` to a GitHub release. Each zip holds every family in `fonts/` plus the OFL. The zips package the committed fonts, so rebuild and commit `fonts/` before tagging.
+
 ## Attribution and licensing
 
 The fonts and glyph outlines derive from [Fira Code 6.2](https://github.com/tonsky/FiraCode/releases/tag/6.2) by the Fira Code Project Authors. They are distributed under the [SIL Open Font License 1.1](OFL.txt). The fonts retain upstream authorship and license notices and identify the modified family as PrismCode.
 
 Copyright © 2026 Full Stack Craft LLC for the PrismCode modifications and original code. The independently authored code is [MIT-licensed](LICENSE). The generator imports [Font Flux JS 2.9.1](https://www.npmjs.com/package/font-flux-js/v/2.9.1), which is GPL-3.0-only. Distributing the combined generator with Font Flux JS calls for GPL-3.0 terms and corresponding source for the combination. The MIT grant remains available for the independently authored code. The generated TTF and WOFF2 contain Fira Code-derived font data and PrismCode paints and are distributed under the OFL. [GNU GPL FAQ](https://www.gnu.org/licenses/gpl-faq.en.html#IfLibraryIsGPL)
+
+## Thanks
+
+- The Fira Code Project Authors for the glyphs, monospace metrics, and programming ligatures that PrismCode builds on. [Fira Code](https://github.com/tonsky/FiraCode)
+- The Font Flux JS contributors for the tools that write the color tables and export the TTF and WOFF2 files. [Font Flux JS](https://github.com/WithYerTeeth/font-flux-js)
+- The HarfBuzz contributors for shaping preview text and checking that the generated fonts preserve Fira Code’s ligatures. [HarfBuzzJS](https://github.com/harfbuzz/harfbuzzjs)
+- The Neobrutalism Components project for the button and card styles adapted for the website. [Neobrutalism Components](https://www.neobrutalism.dev/)
+- The teams behind the website’s static build and styling. [Next.js](https://nextjs.org/) · [React](https://react.dev/) · [Tailwind CSS](https://tailwindcss.com/)
+- The Playwright contributors for making it possible to check the fonts and website across browser engines. [Playwright](https://playwright.dev/)

@@ -1,0 +1,56 @@
+name: Release fonts
+
+# Publishes PrismCode-TTF.zip and PrismCode-WOFF2.zip from the committed fonts/
+# directory. Run it by pushing a tag such as v0.1.0, or from the Actions tab with
+# a tag name, which creates the tag on the commit you run it from.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag for the release, such as v0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - name: Check the tag name
+        run: |
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+            echo "::error::Release tags look like v0.1.0, got '$TAG'."
+            exit 1
+          fi
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Zip the fonts
+        run: |
+          mkdir -p dist/PrismCode-TTF dist/PrismCode-WOFF2
+          cp fonts/*.ttf OFL.txt dist/PrismCode-TTF/
+          cp fonts/*.woff2 OFL.txt dist/PrismCode-WOFF2/
+          cd dist
+          zip -r PrismCode-TTF.zip PrismCode-TTF
+          zip -r PrismCode-WOFF2.zip PrismCode-WOFF2
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            placement=(--target "$GITHUB_SHA")
+          else
+            placement=(--verify-tag)
+          fi
+          gh release create "$TAG" dist/PrismCode-TTF.zip dist/PrismCode-WOFF2.zip \
+            --title "PrismCode $TAG" --generate-notes "${placement[@]}"
