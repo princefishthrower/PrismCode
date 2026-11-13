@@ -28,7 +28,10 @@ export default function Layout({ children }: { children: ReactNode }) {
         {children}
         <footer className="site-footer">
           <div className="shell flex flex-wrap justify-between gap-x-6 gap-y-2">
-            <small>© <Year initial={new Date().getFullYear()} /> Full Stack Craft LLC</small>
+            <small>
+              © <Year initial={new Date().getFullYear()} />{' '}
+              <a className="company-link" href="https://fullstackcraft.com/">Full Stack Craft LLC</a>
+            </small>
             <a href={repository}>GitHub ↗</a>
           </div>
         </footer>
