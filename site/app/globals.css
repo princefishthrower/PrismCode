@@ -28,7 +28,6 @@ main { flex: 1; }
 .site-footer { border-top: var(--border); font-size: .875rem; }
 .site-header a:hover, .site-footer a:hover { text-decoration: underline; }
 .company-link { color: #000; text-decoration: underline; text-underline-offset: 2px; }
-.wordmark { font-size: 1.25rem; font-weight: 900; letter-spacing: -.05em; }
 a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
 
 .hero { display: grid; align-items: center; background: var(--violet); padding-block: clamp(3rem, 9vw, 8rem); }

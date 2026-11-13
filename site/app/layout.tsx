@@ -17,12 +17,9 @@ export default function Layout({ children }: { children: ReactNode }) {
       <head><style>{fontStyles}</style></head>
       <body>
         <header className="site-header">
-          <nav className="shell flex items-center justify-between gap-5" aria-label="Main navigation">
-            <Link href="/" className="wordmark">PrismCode</Link>
-            <div className="flex items-center gap-5">
-              <Link href="/themes/">Themes</Link>
-              <a href={repository}>GitHub ↗</a>
-            </div>
+          <nav className="shell flex items-center justify-center gap-5" aria-label="Main navigation">
+            <Link href="/themes/">Themes</Link>
+            <a href={repository}>GitHub ↗</a>
           </nav>
         </header>
         {children}
