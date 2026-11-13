@@ -38,7 +38,7 @@ for (const extension of ['ttf', 'woff2']) {
     assert.match(font.info.license as string, /SIL Open Font License, Version 1.1/);
     assert.deepEqual(font.palettes, expectedPalettes);
     assert.equal(font.tables!.COLR.version, 1);
-    assert.equal(font.colorGlyphs.length, 117);
+    assert.equal(font.colorGlyphs.length, 120);
     if (extension === 'woff2') {
       assert.deepEqual(font.colorGlyphs, FontFlux.open(ttf).colorGlyphs);
     }

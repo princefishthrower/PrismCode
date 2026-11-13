@@ -130,6 +130,14 @@ for (const [sequence, rules] of Object.entries(ligatures)) {
   }
 }
 
+const alternateLetters = new Map<number, string>();
+for (const [name, letter] of [['i.salt_low', 'i'], ['j.salt_low', 'j'], ['l.salt_low', 'l']]) {
+  const glyphId = font.glyphs.findIndex(glyph => glyph.name === name);
+  if (glyphId < 0) throw new Error(`Missing contextual alternate ${name}`);
+  alternateLetters.set(glyphId, letter);
+  glyphStrokes.set(glyphId, ascii[letter]);
+}
+
 function rename(font: FontFlux, family: string, file: string) {
   delete font.tables!.DSIG;
   font.setInfo({
@@ -200,6 +208,9 @@ for (const { file, slug, name, characters } of variants) {
   for (const [glyphId, sequence] of ligatureGlyphIds) {
     glyphColors.set(glyphId, { base: colors.indexOf(ligatureColors[sequence]) });
   }
+  for (const [glyphId, letter] of alternateLetters) {
+    glyphColors.set(glyphId, { base: colors.indexOf(characters.get(letter)!) });
+  }
   variant.addPalette(colors);
   for (const [glyphId, { base }] of glyphColors) {
     const name = variant.glyphs[glyphId].name;
@@ -218,7 +229,7 @@ for (const { file, slug, name, generate } of strokeThemes) {
   const palette = new Map<string, number>();
   const paints = new Map<number, GlyphPaint>();
   for (const [glyphId, { masks }] of glyphStrokes) {
-    const glyph = original.glyphName(glyphId);
+    const glyph = alternateLetters.get(glyphId) ?? original.glyphName(glyphId);
     const indices = generate(glyph, masks.length + 1, seed).map(color => {
       if (!palette.has(color)) palette.set(color, palette.size);
       return palette.get(color)!;

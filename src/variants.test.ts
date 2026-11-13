@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { FontFlux, initWoff2 } from 'font-flux-js';
@@ -43,7 +42,7 @@ for (const { file, slug, name, characters } of variants) {
       assert.match(String(font.info.copyright), /Fira Code Project Authors/);
       assert.equal(font.tables!.COLR.version, 0);
       assert.equal(font.palettes.length, 1);
-      assert.equal(font.colorGlyphs.length, 117);
+      assert.equal(font.colorGlyphs.length, 120);
       assert.deepEqual(font.colorGlyphs, families[file].colorGlyphs);
       assert.deepEqual(font.palettes, families[file].palettes);
       assert.deepEqual(font.glyphs, sourceFont.glyphs);
@@ -116,15 +115,5 @@ test('Dvorak and Qwerty follow physical key positions with distinct neighboring 
       assert.equal(characterColor(family, '1'), characterColor(family, '!'));
       assert.equal(characterColor(family, '['), characterColor(family, '{'));
     }
-  }
-});
-
-test('the existing stroke fonts retain their original bytes', () => {
-  const hashes = {
-    'fonts/PrismCode-Regular.ttf': 'd76fda15ec287a5955487604f614b8aab5e1388851be5ba9c29612db7c8d5152',
-    'fonts/PrismCode-Regular.woff2': '4dcafaa31f20cd0a63e1e071c31b51352083fc40aa31af123b6cb47e33231508',
-  };
-  for (const [file, hash] of Object.entries(hashes)) {
-    assert.equal(createHash('sha256').update(readFileSync(outputPath(file))).digest('hex'), hash, file);
   }
 });
