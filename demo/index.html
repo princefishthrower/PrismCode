@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrismCode · Font demo</title>
+  <style>
+    @font-face {
+      font-family: PrismCode;
+      src: url("../fonts/PrismCode-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "PrismCode Spectrum";
+      src: url("../fonts/PrismCode-Spectrum.woff2") format("woff2");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "PrismCode Spectrum Mirror";
+      src: url("../fonts/PrismCode-SpectrumMirror.woff2") format("woff2");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "PrismCode Dvorak";
+      src: url("../fonts/PrismCode-Dvorak.woff2") format("woff2");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "PrismCode Qwerty";
+      src: url("../fonts/PrismCode-Qwerty.woff2") format("woff2");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "PrismCode True Shuffle";
+      src: url("../fonts/PrismCode-TrueShuffle.woff2") format("woff2");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "PrismCode Shuffle Hue Rotation";
+      src: url("../fonts/PrismCode-ShuffleHueRotation.woff2") format("woff2");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "PrismCode Shades";
+      src: url("../fonts/PrismCode-Shades.woff2") format("woff2");
+      font-display: swap;
+    }
+    @font-palette-values --aurora {
+      font-family: PrismCode;
+      base-palette: 1;
+    }
+    @font-palette-values --neon {
+      font-family: PrismCode;
+      base-palette: 2;
+    }
+    :root {
+      color-scheme: dark;
+      background: #0b0d13;
+      color: #f1f5f9;
+      font-family: system-ui, sans-serif;
+    }
+    body { margin: 0; }
+    main { max-width: 80rem; margin: 0 auto; padding: clamp(1rem, 4vw, 4rem); }
+    h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 4rem); letter-spacing: -.05em; }
+    h1 + p { margin: .5rem 0 2rem; color: #bac5d5; }
+    .palettes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .variants { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .group-title { margin: 2rem 0 .75rem; font-size: 1.25rem; }
+    section { min-width: 0; border: 1px solid #2a3040; border-radius: .75rem; background: #12151e; }
+    h3 { margin: 0; padding: .9rem 1rem; border-bottom: 1px solid #2a3040; font-size: 1rem; }
+    pre { margin: 0; padding: 1rem; overflow-x: auto; font-size: 16px; line-height: 1.55; }
+    code { font-family: var(--specimen-font, PrismCode), ui-monospace, monospace; font-variant-ligatures: contextual; }
+    .aurora code { font-palette: --aurora; }
+    .neon code { font-palette: --neon; }
+    .spectrum { --specimen-font: "PrismCode Spectrum"; }
+    .spectrum-mirror { --specimen-font: "PrismCode Spectrum Mirror"; }
+    .dvorak { --specimen-font: "PrismCode Dvorak"; }
+    .qwerty { --specimen-font: "PrismCode Qwerty"; }
+    .true-shuffle { --specimen-font: "PrismCode True Shuffle"; }
+    .shuffle-hue-rotation { --specimen-font: "PrismCode Shuffle Hue Rotation"; }
+    .shades { --specimen-font: "PrismCode Shades"; }
+    .ligatures { padding-top: 0; font-size: 14px; white-space: pre-wrap; }
+    .sizes { padding: 0 1rem 1rem; overflow-x: auto; }
+    .sizes p { margin: .4rem 0 0; color: #bac5d5; font-size: 12px; white-space: nowrap; }
+    .sizes code { color: #f1f5f9; }
+    .sizes span { display: inline-block; width: 4em; }
+    @media (max-width: 72rem) { .palettes:not(.variants) { grid-template-columns: 1fr; } }
+    @media (max-width: 52rem) { .variants { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>PrismCode</h1>
+    <p>Fira Code with colored strokes and solid-color variants.</p>
+    <h2 class="group-title">Stroke palettes</h2>
+    <div class="palettes">
+      <section class="sunset">
+        <h3>Sunset</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">AHME0 {} + =&gt; !== λ</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">AHME0 {} + =&gt; !== λ</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">AHME0 {} + =&gt; !== λ</code></p>
+        </div>
+      </section>
+      <section class="aurora">
+        <h3>Aurora</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">AHME0 {} + =&gt; !== λ</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">AHME0 {} + =&gt; !== λ</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">AHME0 {} + =&gt; !== λ</code></p>
+        </div>
+      </section>
+      <section class="neon">
+        <h3>Neon</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">AHME0 {} + =&gt; !== λ</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">AHME0 {} + =&gt; !== λ</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">AHME0 {} + =&gt; !== λ</code></p>
+        </div>
+      </section>
+    </div>
+    <h2 class="group-title">Seeded stroke themes</h2>
+    <div class="palettes seeded">
+      <section class="true-shuffle">
+        <h3>True Shuffle</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">AHME0 ahme . {} + =&gt; !==</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">AHME0 ahme . {} + =&gt; !==</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">AHME0 ahme . {} + =&gt; !==</code></p>
+        </div>
+      </section>
+      <section class="shuffle-hue-rotation">
+        <h3>Shuffle Hue Rotation</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">AHME0 ahme . {} + =&gt; !==</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">AHME0 ahme . {} + =&gt; !==</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">AHME0 ahme . {} + =&gt; !==</code></p>
+        </div>
+      </section>
+      <section class="shades">
+        <h3>Shades</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">AHME0 ahme . {} + =&gt; !==</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">AHME0 ahme . {} + =&gt; !==</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">AHME0 ahme . {} + =&gt; !==</code></p>
+        </div>
+      </section>
+    </div>
+    <h2 class="group-title">Solid-color variants</h2>
+    <div class="palettes variants">
+      <section class="spectrum">
+        <h3>Spectrum</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">ABCXYZ abcxyz 09 {} =&gt; !== λ</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">ABCXYZ abcxyz 09 {} =&gt; !== λ</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">ABCXYZ abcxyz 09 {} =&gt; !== λ</code></p>
+        </div>
+      </section>
+      <section class="spectrum-mirror">
+        <h3>Spectrum Mirror</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">ABCXYZ abcxyz 09 {} =&gt; !== λ</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">ABCXYZ abcxyz 09 {} =&gt; !== λ</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">ABCXYZ abcxyz 09 {} =&gt; !== λ</code></p>
+        </div>
+      </section>
+      <section class="dvorak">
+        <h3>Dvorak</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">AOEUIDHTNS 09 {} =&gt; !== λ</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">AOEUIDHTNS 09 {} =&gt; !== λ</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">AOEUIDHTNS 09 {} =&gt; !== λ</code></p>
+        </div>
+      </section>
+      <section class="qwerty">
+        <h3>Qwerty</h3>
+        <pre><code>const add = (n: number) =&gt; {
+  return n &gt;= 0 ? n + 1 : 0;
+};</code></pre>
+        <pre class="ligatures" aria-label="Programming ligatures"><code>=&gt;  -&gt;  &gt;=  &lt;=  !=  ===  !==  &amp;&amp;  ||  ++  --</code></pre>
+        <div class="sizes">
+          <p><span>12 px</span><code style="font-size: 12px">ASDFGHJKL 09 {} =&gt; !== λ</code></p>
+          <p><span>14 px</span><code style="font-size: 14px">ASDFGHJKL 09 {} =&gt; !== λ</code></p>
+          <p><span>16 px</span><code style="font-size: 16px">ASDFGHJKL 09 {} =&gt; !== λ</code></p>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

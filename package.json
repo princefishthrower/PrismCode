@@ -1,0 +1,31 @@
+{
+  "name": "prismcode",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc --noEmit && node src/build.ts",
+    "test": "node --test src/*.test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/princefishthrower/PrismCode.git"
+  },
+  "author": "Full Stack Craft LLC",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/princefishthrower/PrismCode/issues"
+  },
+  "homepage": "https://github.com/princefishthrower/PrismCode#readme",
+  "description": "A multicolored Fira Code derivative with OpenType COLRv1 stroke masks",
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "firacode": "6.2.0",
+    "font-flux-js": "2.9.1",
+    "harfbuzzjs": "1.6.4",
+    "typescript": "5.9.3"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

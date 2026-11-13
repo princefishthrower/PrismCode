@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Arial", sans-serif;
+}
+
+:root {
+  --ink: #16131c;
+  --paper: #fff9eb;
+  --violet: #bea6ff;
+  --yellow: #ffdf4f;
+  --specimen: #12151e;
+  --border: 3px solid var(--ink);
+  --shadow: 6px 6px 0 var(--ink);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main { flex: 1; }
+.shell { width: min(100% - 3rem, 72rem); margin-inline: auto; }
+.site-header, .site-footer { padding-block: 1rem; font-weight: 700; }
+.site-header { border-bottom: var(--border); }
+.site-footer { border-top: var(--border); font-size: .875rem; }
+.site-header a:hover, .site-footer a:hover { text-decoration: underline; }
+.wordmark { font-size: 1.25rem; font-weight: 900; letter-spacing: -.05em; }
+a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+
+.hero { display: grid; align-items: center; background: var(--violet); padding-block: clamp(3rem, 9vw, 8rem); }
+.hero-content { text-align: center; }
+.hero-specimen {
+  border: var(--border);
+  box-shadow: 9px 9px 0 var(--ink);
+  background: var(--specimen);
+  color: var(--paper);
+  padding: clamp(1.2rem, 4vw, 3.5rem);
+  margin-inline: auto;
+  max-width: 62rem;
+}
+.hero h1 { font-size: clamp(1.65rem, 12vw, 8rem); font-weight: 400; line-height: 1.2; }
+.hero-tagline {
+  margin-top: 1.8rem;
+  font-size: clamp(1.8rem, 5vw, 3.75rem);
+  font-weight: 900;
+  letter-spacing: -.06em;
+  line-height: 1.05;
+}
+.hero-description { max-width: 36rem; margin: .8rem auto 1.6rem; font-size: clamp(1rem, 2vw, 1.25rem); }
+
+/* Anchor styling adapted from the Neobrutalism Components Button. */
+.neo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  padding: .75rem 1.1rem;
+  border: var(--border);
+  border-radius: 4px;
+  background: var(--yellow);
+  font-weight: 800;
+  box-shadow: var(--shadow);
+}
+.neo-button.neutral { background: var(--paper); }
+.neo-button:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--ink); }
+
+.gallery { padding-block: clamp(2rem, 5vw, 4rem); }
+.gallery h1 {
+  font-size: clamp(2.8rem, 9vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: -.075em;
+  line-height: .95;
+  margin-bottom: 2rem;
+}
+.theme-group + .theme-group { margin-top: 3.5rem; }
+.theme-group h2 {
+  display: inline-block;
+  border: var(--border);
+  background: var(--yellow);
+  font-size: clamp(1.15rem, 4vw, 1.55rem);
+  font-weight: 800;
+  padding: .35rem .7rem;
+  margin-bottom: 1.1rem;
+}
+.theme-group + .theme-group h2 { background: #95edba; }
+.theme-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+
+/* The Neobrutalism Card border, hard shadow, and header/body structure. */
+.theme-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: var(--border);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+}
+.theme-card h3 { padding: .65rem 1rem; font-size: clamp(1.15rem, 3vw, 1.5rem); font-weight: 850; }
+.font-specimen { font-variant-ligatures: contextual; }
+.card-specimen {
+  padding: 1rem;
+  background: var(--specimen);
+  color: #e2e8f0;
+  border-block: var(--border);
+}
+.card-specimen code, .card-specimen pre { font-family: inherit; }
+.specimen-title { font-size: clamp(1.55rem, 5vw, 3.4rem); line-height: 1.25; margin-bottom: .75rem; }
+.card-specimen pre { font-size: clamp(.78rem, 2.8vw, 1rem); line-height: 1.5; overflow-x: auto; }
+.ligatures { font-size: .8rem; white-space: pre-wrap; margin-top: .65rem; }
+.theme-description { flex: 1; padding: .85rem 1rem .5rem; }
+.downloads { padding: 0 1rem .9rem; font-size: .875rem; font-weight: 800; }
+.downloads a, .contribute a { text-decoration: underline; text-underline-offset: 3px; }
+.contribute { background: var(--violet); border: var(--border); box-shadow: var(--shadow); padding: clamp(1rem, 4vw, 2rem); margin-top: 3.5rem; }
+.contribute h2 { font-size: clamp(1.35rem, 4vw, 2.25rem); font-weight: 900; letter-spacing: -.04em; line-height: 1.1; }
+.contribute p { margin: .65rem 0; }
+.contribute a { font-weight: 800; }
+
+@media (max-width: 42rem) {
+  .shell { width: calc(100% - 2rem); }
+  .theme-grid { grid-template-columns: 1fr; }
+}

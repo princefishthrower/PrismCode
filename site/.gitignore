@@ -1,0 +1,5 @@
+.next/
+out/
+public/fonts/
+next-env.d.ts
+*.tsbuildinfo
