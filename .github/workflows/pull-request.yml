@@ -1,0 +1,32 @@
+name: Validate font builds
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-fonts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Build the fonts from source
+        run: npm run build
+      - name: Compare the build with the committed files
+        run: |
+          changes="$(git status --porcelain --untracked-files=all -- fonts previews)"
+          if [ -n "$changes" ]; then
+            printf '%s\n' "$changes"
+            echo "::error::fonts/ or previews/ differ from a fresh build of this commit. Run npm run build and commit the result."
+            exit 1
+          fi
+      - run: npm test

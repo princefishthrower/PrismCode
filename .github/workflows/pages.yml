@@ -26,8 +26,21 @@ jobs:
         with:
           node-version: '24'
           cache: npm
-          cache-dependency-path: site/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            site/package-lock.json
       - uses: actions/configure-pages@v6
+      - run: npm ci
+      # The site copies fonts/, so build it from source first, as the release does.
+      - name: Build the fonts from source
+        run: npm run build
+      - name: Compare the build with the committed files
+        run: |
+          if [ -n "$(git status --porcelain -- fonts previews)" ]; then
+            git status --short -- fonts previews
+            echo "::error::fonts/ or previews/ differ from a fresh build of this commit. Run npm run build and commit the result."
+            exit 1
+          fi
       - run: npm ci
         working-directory: site
       - run: npm run build

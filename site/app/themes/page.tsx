@@ -46,7 +46,7 @@ export default function ThemeGallery() {
       ))}
       <section className="contribute">
         <h2>Have an idea for a new theme?</h2>
-        <p>PrismCode is open source. Got a coloring algorithm you’d like to see? Submit a pull request.</p>
+        <p>PrismCode is open source! Submit a pull request!</p>
         <a href={`${repository}/compare`}>Submit a PR ↗</a>
       </section>
     </main>

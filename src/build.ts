@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 import { createHash } from 'node:crypto';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { FontFlux, initWoff2 } from 'font-flux-js';
 import type { Font } from 'harfbuzzjs';
 import { openShapeFont, outputPath, palettes, preserveSource, readFont, shapeText, sourcePath } from './font.ts';
@@ -183,7 +183,11 @@ function preserveStrokeFont(font: FontFlux) {
 
 const preserved = preserveStrokeFont(font);
 await initWoff2();
-for (const directory of ['fonts', 'previews']) mkdirSync(outputPath(directory), { recursive: true });
+// Start from empty output directories so a renamed or removed family leaves no stale file behind.
+for (const directory of ['fonts', 'previews']) {
+  rmSync(outputPath(directory), { recursive: true, force: true });
+  mkdirSync(outputPath(directory));
+}
 function writeFont(font: FontFlux, file: string) {
   for (const [extension, format] of [['ttf', 'sfnt'], ['woff2', 'woff2']] as const) {
     writeFileSync(outputPath(`fonts/PrismCode-${file}.${extension}`), Buffer.from(font.export({ format })));

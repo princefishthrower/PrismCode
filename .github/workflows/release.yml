@@ -1,8 +1,10 @@
 name: Release fonts
 
-# Publishes PrismCode-TTF.zip and PrismCode-WOFF2.zip from the committed fonts/
-# directory. Run it by pushing a tag such as v0.1.0, or from the Actions tab with
-# a tag name, which creates the tag on the commit you run it from.
+# Builds every font from source, checks the result against the committed fonts/
+# and previews/, runs the tests, and publishes PrismCode-TTF.zip and
+# PrismCode-WOFF2.zip from that build. Run it by pushing a tag such as v0.1.0,
+# or from the Actions tab with a tag name, which creates the tag on the commit
+# you run it from.
 on:
   push:
     tags: ['v*']
@@ -34,6 +36,16 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      # PRISMCODE_SEED is unset, so the seeded themes use defaultStrokeSeed from src/stroke-colors.ts.
+      - name: Build the fonts from source
+        run: npm run build
+      - name: Compare the build with the committed files
+        run: |
+          if [ -n "$(git status --porcelain -- fonts previews)" ]; then
+            git status --short -- fonts previews
+            echo "::error::fonts/ or previews/ differ from a fresh build of this commit. Run npm run build and commit the result."
+            exit 1
+          fi
       - run: npm test
       - name: Zip the fonts
         run: |

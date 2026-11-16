@@ -1,50 +1,78 @@
 # PrismCode
 
-[PrismCode website](https://princefishthrower.github.io/PrismCode/)
+PrismCode is a family of monospaced color fonts based on Fira Code 6.2 Regular.
 
-PrismCode is a family of monospaced color fonts based on Fira Code 6.2 Regular. The original PrismCode Regular uses OpenType COLRv1 to give the left leg, right leg, and crossbar of `A` their own colors. [Three seeded stroke themes](#seeded-stroke-themes) use the same outlines and masks. [Four solid-color variants](#solid-color-variants) assign a fixed color to each mapped glyph.
+View all the themes on [the PrismCode website](https://princefishthrower.github.io/PrismCode/)
 
-**Sunset · default**
+## Themes
+
+### Sunset
+
+Warm stroke palette.
 
 ![PrismCode in Sunset](previews/sunset.svg)
 
-**Aurora**
+### Aurora
+
+Cooler palette tuned for dark backgrounds.
 
 ![PrismCode in Aurora](previews/aurora.svg)
 
-**Neon**
+### Neon
+
+High-energy palette with bright contrast.
 
 ![PrismCode in Neon](previews/neon.svg)
 
 [Download TTF](fonts/PrismCode-Regular.ttf) · [Download WOFF2](fonts/PrismCode-Regular.woff2) · [All fonts as ZIP files](https://github.com/princefishthrower/PrismCode/releases/latest)
 
-## Use the stroke palettes on the web
+### True Shuffle
 
-Copy the WOFF2 to your site and update the URL to match. Sunset is palette `0` and is used by default. To use Neon in this example, change `base-palette` to `2`.
+Each stroke draws its own hue, lightness, and chroma from a vivid range.
 
-```css
-@font-face {
-  font-family: PrismCode;
-  src: url("/fonts/PrismCode-Regular.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
+![PrismCode True Shuffle specimen](previews/true-shuffle.svg)
 
-@font-palette-values --aurora {
-  font-family: PrismCode;
-  base-palette: 1;
-}
+### Shuffle Hue Rotation
 
-code {
-  font-family: PrismCode, ui-monospace, monospace;
-  font-variant-ligatures: contextual;
-}
+Each glyph starts with a seeded base color. Successive strokes rotate its OKLCH hue by 45°, keeping lightness constant and retaining as much chroma as sRGB allows.
 
-code.aurora {
-  font-palette: --aurora;
-}
-```
+![PrismCode Shuffle Hue Rotation specimen](previews/shuffle-hue-rotation.svg)
+
+### Shades
+
+Each glyph keeps one seeded hue. Its strokes run from darker to lighter in OKLCH.
+
+![PrismCode Shades specimen](previews/shades.svg)
+
+### Spectrum
+
+A fixed 26-color rainbow follows A–Z. Lowercase letters match uppercase.
+
+![PrismCode Spectrum specimen](previews/spectrum.svg)
+
+### Spectrum Mirror
+
+Uppercase follows Spectrum. Lowercase uses the rainbow in reverse, so a matches Z and z matches A.
+
+![PrismCode Spectrum Mirror specimen](previews/spectrum-mirror.svg)
+
+### Dvorak
+
+Colors follow physical key positions on the standard US Dvorak layout. Case and shifted symbols share the color of their key.
+
+![PrismCode Dvorak specimen](previews/dvorak.svg)
+
+### Qwerty
+
+Colors follow physical key positions on the standard US QWERTY layout, using the same position colors as Dvorak. Case and shifted symbols share the color of their key.
+
+![PrismCode Qwerty specimen](previews/qwerty.svg)
+
+## Using PrismCode
+
+The sunset palette is the default at index `0`. Aurora is palette `1`, Neon is palette `2`, and so on.
+
+The markup:
 
 ```html
 <code>const add = (n: number) =&gt; n + 1;</code>
@@ -53,181 +81,62 @@ code.aurora {
 
 Use `override-colors` to replace individual palette entries. Here all three entries are overridden.
 
-```css
-@font-palette-values --custom {
-  font-family: PrismCode;
-  base-palette: 0;
-  override-colors: 0 #F472B6, 1 #60A5FA, 2 #FDE68A;
-}
-
-code.custom {
-  font-palette: --custom;
-}
-```
-
 ```html
 <code class="custom">const add = (n: number) =&gt; n + 1;</code>
 ```
 
-## Seeded stroke themes
+And corresponding CSS:
 
-Each theme is a separate COLRv1 font family. The seed and glyph name determine the colors at build time, so repeated glyphs use the same colors. Unmapped glyphs use the current text color. Colors are tuned for the dark preview background.
+```css
+@font-face {
+  font-family: "PrismCode";
+  src: url("/fonts/PrismCode-Regular.woff2") format("woff2"); /* Change this path to your actual font file location. */
+  font-style: normal;
+  font-weight: 400;
+}
 
-The bundled seed is `20261113`. To rebuild the three themes and their previews with another seed, set `PRISMCODE_SEED` to an integer. Use the same seed when running the tests against those files.
+@font-palette-values --prismcode-theme {
+  font-family: "PrismCode";
+  base-palette: 1; /* Change base-palette: 0/1/2 to switch Sunset/Aurora/Neon. */
+}
+
+code {
+  font-family: "PrismCode", ui-monospace, monospace;
+  font-palette: --prismcode-theme;
+}
+```
+
+```css
+@font-palette-values --prismcode-custom {
+  font-family: "PrismCode";
+  base-palette: 0;
+  override-colors: 0 #F472B6, 1 #60A5FA, 2 #FDE68A; /* You can change these color values to define your own palette overrides. */
+}
+
+code.custom {
+  font-family: "PrismCode", ui-monospace, monospace;
+  font-palette: --prismcode-custom;
+}
+```
+
+## Seeded Stroke Themes
+
+Each theme is a separate COLRv1 font family. The color determination process in COLRv1 is inherently random, so seed and glyph name determine the colors at build time. For all themes, the colors have been tuned for a dark background.
+
+The currently bundled fonts in 0.1.0 use seed `20261113` (the date when I first released PrismCode). To rebuild the three themes and their previews with another seed, set `PRISMCODE_SEED` to any other integer. Use the same seed when running the tests against those files.
 
 ```sh
 PRISMCODE_SEED=42 npm run build
 PRISMCODE_SEED=42 npm test
 ```
 
-To change the hue step, edit `defaultHueRotation` in [`src/stroke-colors.ts`](src/stroke-colors.ts).
-
-Chrome and Firefox rendered these themes in color at 12, 14, and 16 px. Playwright WebKit rendered the monochrome outlines.
-
-### True Shuffle
-
-Each stroke draws its own hue, lightness, and chroma from a vivid range.
-
-![PrismCode True Shuffle specimen](previews/true-shuffle.svg)
-
-[PrismCode-TrueShuffle.ttf](fonts/PrismCode-TrueShuffle.ttf) · [PrismCode-TrueShuffle.woff2](fonts/PrismCode-TrueShuffle.woff2)
-
-```css
-@font-face {
-  font-family: "PrismCode True Shuffle";
-  src: url("./fonts/PrismCode-TrueShuffle.woff2") format("woff2");
-}
-
-code.true-shuffle {
-  font-family: "PrismCode True Shuffle", monospace;
-}
-```
-
-### Shuffle Hue Rotation
-
-Each glyph starts with a seeded base color. Successive strokes rotate its OKLCH hue by 45°, keeping lightness constant and retaining as much chroma as sRGB allows.
-
-![PrismCode Shuffle Hue Rotation specimen](previews/shuffle-hue-rotation.svg)
-
-[PrismCode-ShuffleHueRotation.ttf](fonts/PrismCode-ShuffleHueRotation.ttf) · [PrismCode-ShuffleHueRotation.woff2](fonts/PrismCode-ShuffleHueRotation.woff2)
-
-```css
-@font-face {
-  font-family: "PrismCode Shuffle Hue Rotation";
-  src: url("./fonts/PrismCode-ShuffleHueRotation.woff2") format("woff2");
-}
-
-code.shuffle-hue-rotation {
-  font-family: "PrismCode Shuffle Hue Rotation", monospace;
-}
-```
-
-### Shades
-
-Each glyph keeps one seeded hue. Its strokes run from darker to lighter in OKLCH.
-
-![PrismCode Shades specimen](previews/shades.svg)
-
-[PrismCode-Shades.ttf](fonts/PrismCode-Shades.ttf) · [PrismCode-Shades.woff2](fonts/PrismCode-Shades.woff2)
-
-```css
-@font-face {
-  font-family: "PrismCode Shades";
-  src: url("./fonts/PrismCode-Shades.woff2") format("woff2");
-}
-
-code.shades {
-  font-family: "PrismCode Shades", monospace;
-}
-```
-
-## Solid-color variants
+## Solid-Color Variants
 
 Each family has one fixed COLRv0 palette. Every visible printable ASCII glyph and the 20 programming sequences listed under Stroke palette coverage have assigned colors. Other glyphs use the current text color.
 
 Spectrum and Spectrum Mirror share supplemental colors for digits, brackets, operators, and other punctuation. Both keyboard families repeat colors every four keys within a row and use disjoint sets on neighboring rows. All four families use the same explicit operator colors for programming ligatures. [US keyboard layouts in XKB](https://github.com/xkbcommon/libxkbcommon/blob/master/test/data/symbols/us)
 
-Each family is loaded directly with its own `font-family`.
-
-All four WOFF2 families rendered in color at 12, 14, and 16 px in Chrome 157, Firefox 159, and Playwright WebKit 27.2 on macOS.
-
-### Spectrum
-
-A fixed 26-color rainbow follows A–Z. Lowercase letters match uppercase.
-
-![PrismCode Spectrum specimen](previews/spectrum.svg)
-
-[PrismCode-Spectrum.ttf](fonts/PrismCode-Spectrum.ttf) · [PrismCode-Spectrum.woff2](fonts/PrismCode-Spectrum.woff2)
-
-```css
-@font-face {
-  font-family: "PrismCode Spectrum";
-  src: url("./fonts/PrismCode-Spectrum.woff2") format("woff2");
-}
-
-code.spectrum {
-  font-family: "PrismCode Spectrum", monospace;
-}
-```
-
-### Spectrum Mirror
-
-Uppercase follows Spectrum. Lowercase uses the rainbow in reverse, so a matches Z and z matches A.
-
-![PrismCode Spectrum Mirror specimen](previews/spectrum-mirror.svg)
-
-[PrismCode-SpectrumMirror.ttf](fonts/PrismCode-SpectrumMirror.ttf) · [PrismCode-SpectrumMirror.woff2](fonts/PrismCode-SpectrumMirror.woff2)
-
-```css
-@font-face {
-  font-family: "PrismCode Spectrum Mirror";
-  src: url("./fonts/PrismCode-SpectrumMirror.woff2") format("woff2");
-}
-
-code.spectrum-mirror {
-  font-family: "PrismCode Spectrum Mirror", monospace;
-}
-```
-
-### Dvorak
-
-Colors follow physical key positions on the standard US Dvorak layout. Case and shifted symbols share the color of their key.
-
-![PrismCode Dvorak specimen](previews/dvorak.svg)
-
-[PrismCode-Dvorak.ttf](fonts/PrismCode-Dvorak.ttf) · [PrismCode-Dvorak.woff2](fonts/PrismCode-Dvorak.woff2)
-
-```css
-@font-face {
-  font-family: "PrismCode Dvorak";
-  src: url("./fonts/PrismCode-Dvorak.woff2") format("woff2");
-}
-
-code.dvorak {
-  font-family: "PrismCode Dvorak", monospace;
-}
-```
-
-### Qwerty
-
-Colors follow physical key positions on the standard US QWERTY layout, using the same position colors as Dvorak. Case and shifted symbols share the color of their key.
-
-![PrismCode Qwerty specimen](previews/qwerty.svg)
-
-[PrismCode-Qwerty.ttf](fonts/PrismCode-Qwerty.ttf) · [PrismCode-Qwerty.woff2](fonts/PrismCode-Qwerty.woff2)
-
-```css
-@font-face {
-  font-family: "PrismCode Qwerty";
-  src: url("./fonts/PrismCode-Qwerty.woff2") format("woff2");
-}
-
-code.qwerty {
-  font-family: "PrismCode Qwerty", monospace;
-}
-```
-
-## Stroke palette coverage
+## Current Coverage
 
 - Regular weight only. All 94 visible printable ASCII characters have color definitions. Single-component marks such as `.` and `_` use one solid color. Space retains its original advance.
 - Color also covers the visible Fira Code 6.2 glyphs shaped for `=>`, `->`, `<-`, `==`, `===`, `!=`, `!==`, `<=`, `>=`, `&&`, `||`, `??`, `...`, `::`, `++`, `--`, `//`, `/*`, `*/`, and `**`. Contextual and stylistic alternates outside that set can appear in monochrome.
@@ -235,7 +144,7 @@ code.qwerty {
 
 PrismCode Regular rendered all three palettes and its programming ligatures at 12, 14, and 16 px in Chrome 157 and Firefox 159 on macOS. Playwright WebKit 27.2 loaded the same font and rendered it in monochrome. The SVG previews use embedded paths and display their colors independently of the browser's font support. [Chromium COLRv1 documentation](https://developer.chrome.com/blog/colrv1-fonts) · [Firefox palette support](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/107)
 
-## Build and test
+## Build and Test
 
 Requires Node.js 22.18 or later.
 
@@ -253,9 +162,11 @@ Edit [`src/variants.ts`](src/variants.ts) to change the fixed rainbow, keyboard,
 
 ### Release
 
-Push a tag such as `v0.1.0`, or run the Release fonts workflow from the Actions tab with a tag name. [The workflow](.github/workflows/release.yml) runs the tests, then attaches `PrismCode-TTF.zip` and `PrismCode-WOFF2.zip` to a GitHub release. Each zip holds every family in `fonts/` plus the OFL. The zips package the committed fonts, so rebuild and commit `fonts/` before tagging.
+Releases are tag based. [The workflow](.github/workflows/release.yml) builds every family from source, runs the tests, then attaches `PrismCode-TTF.zip` and `PrismCode-WOFF2.zip` to a GitHub release. Each zip holds the freshly built fonts plus the OFL.
 
-## Attribution and licensing
+The build is reproducible, so a clean build of a commit matches the `fonts/` and `previews/` committed with it byte for byte. Those directories stay in the repository for the download links and images above. The release and [Pages](.github/workflows/pages.yml) workflows both rebuild them and stop if anything differs, so commit the output of `npm run build` along with any change to `src/`. The workflows never set `PRISMCODE_SEED`. To ship a different seed, change `defaultStrokeSeed` in [`src/stroke-colors.ts`](src/stroke-colors.ts).
+
+## Attribution and Licensing
 
 The fonts and glyph outlines derive from [Fira Code 6.2](https://github.com/tonsky/FiraCode/releases/tag/6.2) by the Fira Code Project Authors. They are distributed under the [SIL Open Font License 1.1](OFL.txt). The fonts retain upstream authorship and license notices and identify the modified family as PrismCode.
 
@@ -265,7 +176,7 @@ Copyright © 2026 Full Stack Craft LLC for the PrismCode modifications and origi
 
 - The Fira Code Project Authors for the glyphs, monospace metrics, and programming ligatures that PrismCode builds on. [Fira Code](https://github.com/tonsky/FiraCode)
 - The Font Flux JS contributors for the tools that write the color tables and export the TTF and WOFF2 files. [Font Flux JS](https://github.com/WithYerTeeth/font-flux-js)
-- The HarfBuzz contributors for shaping preview text and checking that the generated fonts preserve Fira Code’s ligatures. [HarfBuzzJS](https://github.com/harfbuzz/harfbuzzjs)
+- The HarfBuzz contributors for shaping preview text and checking that the generated fonts preserve Fira Code's ligatures. [HarfBuzzJS](https://github.com/harfbuzz/harfbuzzjs)
 - The Neobrutalism Components project for the button and card styles adapted for the website. [Neobrutalism Components](https://www.neobrutalism.dev/)
-- The teams behind the website’s static build and styling. [Next.js](https://nextjs.org/) · [React](https://react.dev/) · [Tailwind CSS](https://tailwindcss.com/)
+- The teams behind the website's static build and styling. [Next.js](https://nextjs.org/) · [React](https://react.dev/) · [Tailwind CSS](https://tailwindcss.com/)
 - The Playwright contributors for making it possible to check the fonts and website across browser engines. [Playwright](https://playwright.dev/)

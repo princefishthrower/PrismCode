@@ -2,7 +2,7 @@ import { basePath } from '../paths';
 
 export const themes = [
   { name: 'Sunset', file: 'Regular', category: 'strokes', description: 'Rose, orange, and yellow color separate strokes in the original PrismCode palette.' },
-  { name: 'Aurora', file: 'Regular', palette: 1, category: 'strokes', description: 'Purple, mint, and sky blue replace Sunset’s three stroke colors.' },
+  { name: 'Aurora', file: 'Regular', palette: 1, category: 'strokes', description: 'Purple, mint, and sky blue replace Sunset\'s three stroke colors.' },
   { name: 'Neon', file: 'Regular', palette: 2, category: 'strokes', description: 'Pink, lime, and cyan bring high-energy color to the same stroke shapes.' },
   { name: 'True Shuffle', file: 'TrueShuffle', category: 'strokes', description: 'Each stroke gets an independent, seeded color.' },
   { name: 'Shuffle Hue Rotation', file: 'ShuffleHueRotation', category: 'strokes', description: 'Each glyph starts with a seeded color. Successive strokes rotate the hue by 45°.' },
