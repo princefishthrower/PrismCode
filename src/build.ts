@@ -6,7 +6,7 @@ import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { FontFlux, initWoff2 } from 'font-flux-js';
 import type { Font } from 'harfbuzzjs';
 import { openShapeFont, outputPath, palettes, preserveSource, readFont, shapeText, sourcePath } from './font.ts';
-import { ascii, ligatures, maskPath } from './strokes.ts';
+import { ascii, contextualStrokes, ligatures, maskPath } from './strokes.ts';
 import type { Mask, Strokes } from './strokes.ts';
 import { ligatureColors, variants } from './variants.ts';
 import { defaultStrokeSeed, strokeThemes } from './stroke-colors.ts';
@@ -130,12 +130,12 @@ for (const [sequence, rules] of Object.entries(ligatures)) {
   }
 }
 
-const alternateLetters = new Map<number, string>();
-for (const [name, letter] of [['i.salt_low', 'i'], ['j.salt_low', 'j'], ['l.salt_low', 'l']]) {
+const alternateCharacters = new Map<number, string>();
+for (const [name, { character, strokes }] of Object.entries(contextualStrokes)) {
   const glyphId = font.glyphs.findIndex(glyph => glyph.name === name);
   if (glyphId < 0) throw new Error(`Missing contextual alternate ${name}`);
-  alternateLetters.set(glyphId, letter);
-  glyphStrokes.set(glyphId, ascii[letter]);
+  alternateCharacters.set(glyphId, character);
+  glyphStrokes.set(glyphId, strokes);
 }
 
 function rename(font: FontFlux, family: string, file: string) {
@@ -212,8 +212,8 @@ for (const { file, slug, name, characters } of variants) {
   for (const [glyphId, sequence] of ligatureGlyphIds) {
     glyphColors.set(glyphId, { base: colors.indexOf(ligatureColors[sequence]) });
   }
-  for (const [glyphId, letter] of alternateLetters) {
-    glyphColors.set(glyphId, { base: colors.indexOf(characters.get(letter)!) });
+  for (const [glyphId, character] of alternateCharacters) {
+    glyphColors.set(glyphId, { base: colors.indexOf(characters.get(character)!) });
   }
   variant.addPalette(colors);
   for (const [glyphId, { base }] of glyphColors) {
@@ -233,7 +233,9 @@ for (const { file, slug, name, generate } of strokeThemes) {
   const palette = new Map<string, number>();
   const paints = new Map<number, GlyphPaint>();
   for (const [glyphId, { masks }] of glyphStrokes) {
-    const glyph = alternateLetters.get(glyphId) ?? original.glyphName(glyphId);
+    const character = alternateCharacters.get(glyphId);
+    const baseGlyphId = character === undefined ? glyphId : original.nominalGlyph(character.codePointAt(0)!)!;
+    const glyph = original.glyphName(baseGlyphId);
     const indices = generate(glyph, masks.length + 1, seed).map(color => {
       if (!palette.has(color)) palette.set(color, palette.size);
       return palette.get(color)!;

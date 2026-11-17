@@ -138,14 +138,14 @@ PRISMCODE_SEED=42 npm test
 
 ## Solid-Color Variants
 
-Each family has one fixed COLRv0 palette. Every visible printable ASCII glyph and the 20 programming sequences listed under Stroke palette coverage have assigned colors. Other glyphs use the current text color.
+Each family has one fixed COLRv0 palette. Every visible printable ASCII glyph and the programming ligatures covered below have assigned colors. Other glyphs use the current text color.
 
 Spectrum and Spectrum Mirror share supplemental colors for digits, brackets, operators, and other punctuation. Both keyboard families repeat colors every four keys within a row and use disjoint sets on neighboring rows. All four families use the same explicit operator colors for programming ligatures. [US keyboard layouts in XKB](https://github.com/xkbcommon/libxkbcommon/blob/master/test/data/symbols/us)
 
 ## Current Coverage
 
 - Regular weight only. All 94 visible printable ASCII characters have color definitions. Single-component marks such as `.` and `_` use one solid color. Space retains its original advance.
-- Color also covers the visible Fira Code 6.2 glyphs shaped for `=>`, `->`, `<-`, `==`, `===`, `!=`, `!==`, `<=`, `>=`, `&&`, `||`, `??`, `...`, `::`, `++`, `--`, `//`, `/*`, `*/`, and `**`. Contextual and stylistic alternates outside that set can appear in monochrome.
+- Color covers every visible glyph Fira Code 6.2 shapes from the 9,025 ordered printable ASCII pairs, including contextual forms and ligatures such as `</`, `/>`, and `?.`. The tests also require color for longer supported sequences such as `!==` and for the website code samples.
 - Other original Fira Code glyphs, such as `λ` and `é`, inherit the text color. Applications without COLRv1 support can render the original monochrome outlines. Ligature shaping and palette selection depend on the application.
 
 PrismCode Regular rendered its stroke palettes and its programming ligatures at 12, 14, and 16 px in Chrome 157 and Firefox 159 on macOS. Playwright WebKit 27.2 loaded the same font and rendered it in monochrome. The SVG previews use embedded paths and display their colors independently of the browser's font support. [Chromium COLRv1 documentation](https://developer.chrome.com/blog/colrv1-fonts) · [Firefox palette support](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/107)

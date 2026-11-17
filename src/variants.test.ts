@@ -42,7 +42,7 @@ for (const { file, slug, name, characters } of variants) {
       assert.match(String(font.info.copyright), /Fira Code Project Authors/);
       assert.equal(font.tables!.COLR.version, 0);
       assert.equal(font.palettes.length, 1);
-      assert.equal(font.colorGlyphs.length, 120);
+      assert.equal(font.colorGlyphs.length, 182);
       assert.deepEqual(font.colorGlyphs, families[file].colorGlyphs);
       assert.deepEqual(font.palettes, families[file].palettes);
       assert.deepEqual(font.glyphs, sourceFont.glyphs);
