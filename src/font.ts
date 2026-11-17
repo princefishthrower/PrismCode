@@ -11,6 +11,7 @@ export const palettes = {
   sunset: ['#F43F5E', '#FB923C', '#FACC15'],
   aurora: ['#A855F7', '#34D399', '#38BDF8'],
   neon: ['#F0ABFC', '#A3E635', '#22D3EE'],
+  ice: ['#BAE6FD', '#60A5FA', '#22D3EE'],
 };
 
 export function readFont(path: URL): ArrayBuffer {

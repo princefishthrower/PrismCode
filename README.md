@@ -24,6 +24,12 @@ High-energy palette with bright contrast.
 
 ![PrismCode in Neon](previews/neon.svg)
 
+### Ice
+
+Pale blue, sky blue, and cyan across the same strokes as Sunset.
+
+![PrismCode in Ice](previews/ice.svg)
+
 [Download TTF](fonts/PrismCode-Regular.ttf) · [Download WOFF2](fonts/PrismCode-Regular.woff2) · [All fonts as ZIP files](https://github.com/princefishthrower/PrismCode/releases/latest)
 
 ### True Shuffle
@@ -70,7 +76,7 @@ Colors follow physical key positions on the standard US QWERTY layout, using the
 
 ## Using PrismCode
 
-The sunset palette is the default at index `0`. Aurora is palette `1`, Neon is palette `2`, and so on.
+Sunset is the default palette at index `0`. Aurora is `1`, Neon is `2`, and Ice is `3`.
 
 The markup:
 
@@ -97,7 +103,7 @@ And corresponding CSS:
 
 @font-palette-values --prismcode-theme {
   font-family: "PrismCode";
-  base-palette: 1; /* Change base-palette: 0/1/2 to switch Sunset/Aurora/Neon. */
+  base-palette: 1; /* Use 0 for Sunset, 1 for Aurora, 2 for Neon, or 3 for Ice. */
 }
 
 code {
@@ -142,7 +148,7 @@ Spectrum and Spectrum Mirror share supplemental colors for digits, brackets, ope
 - Color also covers the visible Fira Code 6.2 glyphs shaped for `=>`, `->`, `<-`, `==`, `===`, `!=`, `!==`, `<=`, `>=`, `&&`, `||`, `??`, `...`, `::`, `++`, `--`, `//`, `/*`, `*/`, and `**`. Contextual and stylistic alternates outside that set can appear in monochrome.
 - Other original Fira Code glyphs, such as `λ` and `é`, inherit the text color. Applications without COLRv1 support can render the original monochrome outlines. Ligature shaping and palette selection depend on the application.
 
-PrismCode Regular rendered all three palettes and its programming ligatures at 12, 14, and 16 px in Chrome 157 and Firefox 159 on macOS. Playwright WebKit 27.2 loaded the same font and rendered it in monochrome. The SVG previews use embedded paths and display their colors independently of the browser's font support. [Chromium COLRv1 documentation](https://developer.chrome.com/blog/colrv1-fonts) · [Firefox palette support](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/107)
+PrismCode Regular rendered its stroke palettes and its programming ligatures at 12, 14, and 16 px in Chrome 157 and Firefox 159 on macOS. Playwright WebKit 27.2 loaded the same font and rendered it in monochrome. The SVG previews use embedded paths and display their colors independently of the browser's font support. [Chromium COLRv1 documentation](https://developer.chrome.com/blog/colrv1-fonts) · [Firefox palette support](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/107)
 
 ## Build and Test
 

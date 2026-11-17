@@ -20,6 +20,7 @@ const expectedPalettes = [
   ['#f43f5e', '#fb923c', '#facc15'],
   ['#a855f7', '#34d399', '#38bdf8'],
   ['#f0abfc', '#a3e635', '#22d3ee'],
+  ['#bae6fd', '#60a5fa', '#22d3ee'],
 ];
 
 const plainAscii = Array.from({ length: 95 }, (_, i) => String.fromCharCode(i + 32)).join('');
@@ -28,7 +29,7 @@ for (const extension of ['ttf', 'woff2']) {
   const bytes = readFont(outputPath(`fonts/PrismCode-Regular.${extension}`));
   const font = FontFlux.open(bytes);
 
-  test(`${extension} is valid and contains exactly the three palettes and COLRv1 paints`, () => {
+  test(`${extension} is valid and contains exactly four palettes and COLRv1 paints`, () => {
     assert.deepEqual(FontFlux.diagnose(bytes).errors, []);
     assert.equal(font.info.familyName, 'PrismCode');
     assert.equal(font.info.styleName, 'Regular');
@@ -141,6 +142,7 @@ test('SVG previews contain the same outlines and use their respective palette', 
     return [...svg.matchAll(/<path\b[^>]*\bd="([^"]+)"/g)].map(match => match[1]);
   });
   assert.ok(paths[0].length > 50);
-  assert.deepEqual(paths[0], paths[1]);
-  assert.deepEqual(paths[0], paths[2]);
+  for (const outlinePaths of paths.slice(1)) {
+    assert.deepEqual(outlinePaths, paths[0]);
+  }
 });
